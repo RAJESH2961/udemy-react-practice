@@ -46,6 +46,7 @@ function Header(){
   )
 }
 
+
 //Making Components reusable
 function CoreConcept(props){
   return(
@@ -59,6 +60,11 @@ function CoreConcept(props){
 
 import componentsImg from './assets/components.png'; // or the correct path
 
+//Getting data from External FIle
+import { CORE_CONCEPTS } from './data.js';
+
+
+
 function App() {
   return (
     <div>
@@ -67,11 +73,11 @@ function App() {
       <main>
         <section id='core-concepts'>
           <h2>core Concepts</h2>
-          <ul>
-  <CoreConcept 
-    title="Components"
-    description="The core building blocks of React."
-    image={componentsImg}
+          {/* <ul> */}
+  {/* <CoreConcept 
+    title={CORE_CONCEPTS[0].title}
+    description={CORE_CONCEPTS[0].description}
+    image={CORE_CONCEPTS[0].image}
   />
   <CoreConcept 
     title="JSX"
@@ -97,8 +103,38 @@ function App() {
     title="Rendering"
     description="The process of displaying UI based on data."
     image={componentsImg}
+  /> */}
+{/* </ul> */}
+
+{/* we can also iterate through all elemants */}
+<ul>
+  {CORE_CONCEPTS.map((concept, index) => (
+    <CoreConcept
+      key={index}
+      title={concept.title}
+      description={concept.description}
+      image={concept.image}
+    />
+  ))}
+{/* //We can display it using 3 ways */}
+{/* //using method-1  */}
+<CoreConcept 
+    title={CORE_CONCEPTS[0].title}
+    description={CORE_CONCEPTS[0].description}
+    image={CORE_CONCEPTS[0].image}
   />
+  {/* method-2 hard coded value passing props */}
+  <CoreConcept 
+    title="JSX"
+    description="JS syntax for writing UI inside JavaScript."
+    image={componentsImg}
+  />
+  {/* method-3 spread operators */}
+  <CoreConcept {...CORE_CONCEPTS[0]}/>
+  <CoreConcept {...CORE_CONCEPTS[0]}/>
+
 </ul>
+
 
         </section>
         <h2>Time to get started!</h2>
