@@ -25,6 +25,7 @@ function genRandomInt(max){
   return Math.floor(Math.random() * (max+1));
 }
 
+
 //Dynamic path
 import reactImg from './assets/react-core-concepts.png'
 function Header(){
@@ -45,6 +46,18 @@ function Header(){
   )
 }
 
+//Making Components reusable
+function CoreConcept(props){
+  return(
+    <li>
+      <img src={props.image} alt={props.title}/>
+      <h3>{props.title}</h3>
+      <p>{props.description}</p>
+    </li>
+  )
+}
+
+import componentsImg from './assets/components.png'; // or the correct path
 
 function App() {
   return (
@@ -52,6 +65,42 @@ function App() {
       {/* <Header></Header> */}
       <Header/>
       <main>
+        <section id='core-concepts'>
+          <h2>core Concepts</h2>
+          <ul>
+  <CoreConcept 
+    title="Components"
+    description="The core building blocks of React."
+    image={componentsImg}
+  />
+  <CoreConcept 
+    title="JSX"
+    description="JS syntax for writing UI inside JavaScript."
+    image={componentsImg}
+  />
+  <CoreConcept 
+    title="Props"
+    description="Way to pass data into components."
+    image={componentsImg}
+  />
+  <CoreConcept 
+    title="State"
+    description="Manages dynamic data and UI updates."
+    image={componentsImg}
+  />
+  <CoreConcept 
+    title="Hooks"
+    description="Functions that let you use state and other features."
+    image={componentsImg}
+  />
+  <CoreConcept 
+    title="Rendering"
+    description="The process of displaying UI based on data."
+    image={componentsImg}
+  />
+</ul>
+
+        </section>
         <h2>Time to get started!</h2>
       </main>
     </div>
