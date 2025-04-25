@@ -17,9 +17,9 @@
 //   )
 // }
 
-//we created seperate component for CoreConcept so we need to import 
+//we created seperate component for CoreConcept so we need to import
 import CoreConcept from './components/CoreConcept.jsx';
-
+import TabButton from './components/TabButton.jsx';
 //Good Practice
 const reactDescription = ['Fundamantal', 'Crucial', 'Core']
 
@@ -129,6 +129,16 @@ function App() {
 </ul>
 
 
+        </section>
+        <section id="examples">
+          <h2>Examples</h2>
+          <menu>
+          <TabButton>Hello</TabButton>
+          <TabButton>JSX</TabButton>
+          <TabButton>Props</TabButton>
+          <TabButton>State</TabButton>
+          {/* <TabButton label="Hello"></TabButton> */}
+          </menu>
         </section>
         <h2>Time to get started!</h2>
       </main>

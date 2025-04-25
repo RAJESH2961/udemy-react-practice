@@ -1,4 +1,4 @@
-
+import './Header.css';       // if in src/styles/Header.css
 
 //Good Practice
 const reactDescription = ['Fundamantal', 'Crucial', 'Core']
@@ -11,7 +11,8 @@ function genRandomInt(max){
 //why here we used .. instead of . because we need to go two step back 
 //1- components
 //2- assets
-import reactImg from '../assets/react-core-concepts.png'
+import reactImg from './assets/react-core-concepts.png'
+
 export default function Header(){
   //Good Practice
   const description = reactDescription[genRandomInt(2)];
