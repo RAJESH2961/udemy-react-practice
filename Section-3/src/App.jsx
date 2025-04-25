@@ -17,6 +17,8 @@
 //   )
 // }
 
+//we created seperate component for CoreConcept so we need to import 
+import CoreConcept from './components/CoreConcept.jsx';
 
 //Good Practice
 const reactDescription = ['Fundamantal', 'Crucial', 'Core']
@@ -47,16 +49,7 @@ function Header(){
 }
 
 
-//Making Components reusable
-function CoreConcept(props){
-  return(
-    <li>
-      <img src={props.image} alt={props.title}/>
-      <h3>{props.title}</h3>
-      <p>{props.description}</p>
-    </li>
-  )
-}
+
 
 import componentsImg from './assets/components.png'; // or the correct path
 
