@@ -27,7 +27,7 @@ function genRandomInt(max){
   return Math.floor(Math.random() * (max+1));
 }
 
-
+import { EXAMPLES } from './data-with-examples.js';
 //Dynamic path
 import reactImg from './assets/react-core-concepts.png'
 function Header(){
@@ -60,7 +60,7 @@ import { useState } from 'react';
 
 
 function App() {
-  const [selectedTopic, setSelectedTopic] = useState('please click a button');
+  const [selectedTopic, setSelectedTopic] = useState('components');
 
   function handleSelect(selectedButton){
     //Selected button may be 4, components,jsx,props,state
@@ -148,7 +148,16 @@ function App() {
 
           {/* <TabButton label="Hello"></TabButton> */}
           </menu>
-          {selectedTopic}
+          {/* {selectedTopic} */}
+          <div id="tab-content">
+            <h3>{EXAMPLES[selectedTopic].title}</h3>
+            <p>{EXAMPLES[selectedTopic].description}</p>
+            <pre>
+              <code>
+              {EXAMPLES[selectedTopic].code}
+              </code>
+            </pre>
+          </div>
         </section>
         <h2>Time to get started!</h2>
       </main>
