@@ -55,10 +55,18 @@ import componentsImg from './assets/components.png'; // or the correct path
 
 //Getting data from External FIle
 import { CORE_CONCEPTS } from './data.js';
+import { useState } from 'react';
 
 
 
 function App() {
+  const [selectedTopic, setSelectedTopic] = useState('please click a button');
+
+  function handleSelect(selectedButton){
+    //Selected button may be 4, components,jsx,props,state
+    setSelectedTopic(selectedButton);
+    console.log(selectedButton);  
+}
   return (
     <div>
       {/* <Header></Header> */}
@@ -133,12 +141,14 @@ function App() {
         <section id="examples">
           <h2>Examples</h2>
           <menu>
-          <TabButton>Hello</TabButton>
-          <TabButton>JSX</TabButton>
-          <TabButton>Props</TabButton>
-          <TabButton>State</TabButton>
+          <TabButton onSelect={()=>handleSelect('components')}>Components</TabButton>
+          <TabButton onSelect={()=>handleSelect('jsx')}>jsx</TabButton>
+          <TabButton onSelect={()=>handleSelect('props')}>Props</TabButton>
+          <TabButton onSelect={()=>handleSelect('state')}>State</TabButton>
+
           {/* <TabButton label="Hello"></TabButton> */}
           </menu>
+          {selectedTopic}
         </section>
         <h2>Time to get started!</h2>
       </main>
