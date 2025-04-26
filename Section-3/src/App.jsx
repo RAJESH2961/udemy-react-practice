@@ -60,7 +60,7 @@ import { useState } from 'react';
 
 
 function App() {
-  const [selectedTopic, setSelectedTopic] = useState('components');
+  const [selectedTopic, setSelectedTopic] = useState('');
 
   function handleSelect(selectedButton){
     //Selected button may be 4, components,jsx,props,state
@@ -148,8 +148,7 @@ function App() {
 
           {/* <TabButton label="Hello"></TabButton> */}
           </menu>
-          {/* {selectedTopic} */}
-          <div id="tab-content">
+          {!selectedTopic ?(<p>Please select a topic </p> ): (<div id="tab-content">
             <h3>{EXAMPLES[selectedTopic].title}</h3>
             <p>{EXAMPLES[selectedTopic].description}</p>
             <pre>
@@ -157,7 +156,9 @@ function App() {
               {EXAMPLES[selectedTopic].code}
               </code>
             </pre>
-          </div>
+          </div>)}
+          {/* {selectedTopic} */}
+          
         </section>
         <h2>Time to get started!</h2>
       </main>
