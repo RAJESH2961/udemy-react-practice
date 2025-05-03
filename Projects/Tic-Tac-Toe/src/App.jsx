@@ -1,4 +1,6 @@
 import Player from "./Components/Player";
+// index.js or App.js
+import './index.css';  // or './App.css'
 function App() {
   return (
     <main>
