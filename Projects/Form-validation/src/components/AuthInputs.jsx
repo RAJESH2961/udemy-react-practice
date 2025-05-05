@@ -24,21 +24,22 @@ export default function AuthInputs() {
     <div id="auth-inputs">
       <div className="controls">
         <p>
-          <label>Email</label>
+          <label className={`label ${emailNotValid ? 'invalid' : ''}`}>Email</label>
           <input
             type="email"
-            style={{
-              backgroundColor: emailNotValid ? '#fed2d2' : '#d1d5db'
-            }}
-            // className={emailNotValid ? 'invalid' : undefined}
+            // style={{
+            //   backgroundColor: emailNotValid ? '#fed2d2' : '#d1d5db'
+            // }}
+            className={emailNotValid ? 'invalid' : undefined}//If it is true the class name will be invalid else undefined
+            // className={emailNotValid && 'invalid'} //if it is false it returns false so it is not a good practice but it works gives erroe in browser
             onChange={(event) => handleInputChange('email', event.target.value)}
           />
         </p>
         <p>
-          <label>Password</label>
+          <label className={`label ${passwordNotValid ? 'invalid' : ''}`}>Password</label>
           <input
             type="password"
-            // className={passwordNotValid ? 'invalid' : undefined}
+            className={passwordNotValid ? 'invalid' : undefined}
             onChange={(event) =>
               handleInputChange('password', event.target.value)
             }
