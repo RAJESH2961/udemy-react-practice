@@ -50,8 +50,8 @@ import '../index.css';
 export default function Header() {
   return (
     <header className='flex flex-col items-center mt-8 mb-16'>
-      <img className='object-contain mb-8 w-44 h-44 ' src={logo} alt="A canvas" />
-      <h1 className='text-4xl font-semibold tracking-widest text-center uppercase text-amber-800'>ReactArt</h1>
+      <img className='object-contain mb-8 w-44 h-44 md:mb-16' src={logo} alt="A canvas" />
+      <h1 className='text-xl md:text-4xl font-semibold tracking-widest text-center uppercase text-amber-800'>ReactArt</h1>
       {/* <div className="s"></div> */}
       <p className='text-stone-500'>A community of artists and art-lovers.</p>
     </header>
