@@ -50,7 +50,7 @@ export default function AuthInputs() {
       <ControlContainer>
 
           <Input
-          label="Email"
+            label="Email"
             type="email"
             invalid={emailNotValid}
             // style={{
