@@ -1,28 +1,33 @@
 import { useState, useRef } from "react";
 import ResultModal from "./ResultModal";
 export default function TimerChallenge({ title, targetTime }) {
-  const [timerStarted, setTimerStarted] = useState(false);
-  const [timerExpired, setTimerExpired] = useState(false);
+//   const [timerStarted, setTimerStarted] = useState(false);
+//   const [timerExpired, setTimerExpired] = useState(false);
+
   const timerRef = useRef(null); // Persist timer across renders
+  const dialog = useRef();
 
   function handleStart() {
-    // Reset expiration state in case of a restart
-    setTimerExpired(false);
+    // setTimerExpired(false);
+    // setTimerStarted(true);
+  
     timerRef.current = setTimeout(() => {
       setTimerExpired(true);
+      dialog.current.open(); // ✅ correctly using the exposed method
     }, targetTime * 1000);
-    setTimerStarted(true);
   }
+  
 
   function handleStop() {
-    clearTimeout(timerRef.current); // Access saved timer
-    setTimerStarted(false);
-    setTimerExpired(false); // Optional: Reset status on stop
+    clearTimeout(timerRef.current);        // Stop the timer
+    setTimerStarted(false);                // Switch button label back to "Start"
+    dialog.current.open();                 // Open the result modal (optional)
   }
+  
 
   return (
     <>
-{ timerExpired && <ResultModal targetTime={targetTime} result="lost" />}
+<ResultModal ref={dialog} targetTime={targetTime} result="lost" />
     <section className="challenge">
       <h2>{title}</h2>
 
