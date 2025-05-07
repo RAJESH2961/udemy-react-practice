@@ -25,8 +25,17 @@ function App() {
       };
     });
   }
-  function handleDeleteTask(){}
-
+  function handleDeleteTask(taskId) {
+    setProjectState((prevState) => {
+      return {
+        ...prevState,
+        tasks: prevState.tasks.filter((task) => task.id !== taskId),
+      };
+    });
+  }
+  
+  
+  
 
   function handleSelectedProject(id) {
     setProjectState((prevState) => ({
@@ -83,8 +92,18 @@ function App() {
   } else if (projectState.selectedProjectId === undefined) {
     content = <NoProjectselected onStartAddProject={handleStartAddProject} />;
   } else {
-    content = <SelectedProject project={selectedProject} onDelete={handleDeleteProject} onAddTask={handleAddTask} onDeleteTask={handleDeleteTask} tasks={projectState.tasks} />;
-  }
+    content = (
+      <SelectedProject
+        project={selectedProject}
+        onDelete={handleDeleteProject}
+        onAddTask={handleAddTask}
+        onDeleteTask={handleDeleteTask}
+        tasks={projectState.tasks.filter(
+          (task) => task.projectId === projectState.selectedProjectId
+        )}
+      />
+    );
+      }
 
   return (
     <main className="h-screen my-8 mx-20 flex gap-8">
