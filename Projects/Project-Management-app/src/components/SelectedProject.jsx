@@ -1,4 +1,5 @@
-export default function SelectedProject({ project, onDelete }) {
+import Tasks from "./Tasks";
+export default function SelectedProject({ project, onDelete, onAddTask, onDeleteTask, tasks}) {
     if (!project) {
       return <p className="text-red-600">No project found.</p>;
     }
@@ -19,7 +20,7 @@ export default function SelectedProject({ project, onDelete }) {
           <p className="mb-4 text-stone-400">{formattedDate}</p>
           <p className="text-stone-600 whitespace-pre-wrap">{project.description}</p>
         </header>
-        TASKS
+        <Tasks onAdd={onAddTask} tasks={tasks} onDelete={onDeleteTask}/>
       </div>
     );
   }
