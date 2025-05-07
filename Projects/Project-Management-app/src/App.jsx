@@ -27,11 +27,13 @@ function App() {
       }
       return{
         ...prevState,
+        selectedProjectId: undefined,
+
         projects: [...prevState.projects, newProject]
       };
     })
   }
-console.log(projectState);;
+// console.log(projectState);;
 
   let content;
   if(projectState.selectedProjectId === null){
@@ -45,7 +47,7 @@ console.log(projectState);;
     // <>
       // {/* <h1 className="my-8 text-center text-5xl font-bold">Hello World</h1> */}
       <main className="h-screen my-8 mx-20 flex gap-8">
-        <ProjectSidebar onStartAddProject={handleStartAddProject}/>
+        <ProjectSidebar onStartAddProject={handleStartAddProject} projects={projectState.projects} />
         {/* <NewProject/> */}
         {content}
         
