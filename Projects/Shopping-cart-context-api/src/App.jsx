@@ -4,7 +4,8 @@ import Header from './components/Header.jsx';
 import Shop from './components/Shop.jsx';
 import { DUMMY_PRODUCTS } from './dummy-products.js';
 import Product from './Product.jsx';
-
+//importing Context
+import { CartContext } from './store/shopping-cart-context.jsx';
 
 function App() {
   const [shoppingCart, setShoppingCart] = useState({
@@ -68,7 +69,8 @@ function App() {
   }
 
   return (
-    <>
+    // for below 19 version ve need to use <CartContext.provider> after 19 we dont need to but anyway it works
+    <CartContext.Provider>
       <Header
         cart={shoppingCart}
         onUpdateCartItemQuantity={handleUpdateCartItemQuantity}
@@ -80,7 +82,7 @@ function App() {
           </li>
         ))}
       </Shop>
-    </>
+    </CartContext.Provider>
   );
 }
 
