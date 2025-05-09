@@ -68,9 +68,14 @@ function App() {
     });
   }
 
+  const ctxValue ={
+    items: shoppingCart.items,
+    addItemToCart: handleAddItemToCart
+  };
+
   return (
     // for below 19 version ve need to use <CartContext.provider> after 19 we dont need to but anyway it works
-    <CartContext.Provider value={{ items: [] }}>
+    <CartContext.Provider value={ctxValue}>
       <Header
         cart={shoppingCart}
         onUpdateCartItemQuantity={handleUpdateCartItemQuantity}
