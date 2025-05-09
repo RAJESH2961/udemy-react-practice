@@ -21,7 +21,7 @@ export default function Player({initialName,symbol,isActive}){
 
     }
     return(
-        <li className={isActive? 'active' : undefined}>//for applying css 
+        <li className={isActive? 'active' : undefined}>
             <span>
             {editableplayerName}
             <span className="player-symbol">{symbol}</span>
