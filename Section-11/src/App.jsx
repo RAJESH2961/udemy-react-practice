@@ -7,17 +7,20 @@ import DeleteConfirmation from './components/DeleteConfirmation.jsx';
 import logoImg from './assets/logo.png';
 import {sortPlacesByDistance}from './loc.js';
 
+//fetched data from local storage(it only runs once in entire life cycle)
+//ther is no reason is to put this ocde in APP() because it only runs once
+    const storedIds = JSON.parse(localStorage.getItem('selectedPlaces')) || [];
+    const storedPlaces = storedIds.map((id) => AVAILABLE_PLACES.find((place) => place.id === id));
+
+
 function App() {
   const modal = useRef();
   const selectedPlace = useRef();
-  const [pickedPlaces, setPickedPlaces] = useState([]);
+  const [pickedPlaces, setPickedPlaces] = useState(storedPlaces);//local storage data will be displayed in initialstate
   const [availabePlaces, setAvailablePlaces] = useState([]);
 
-  useEffect(() =>{
-    const storedIds = JSON.parse(localStorage.getItem('selectedPlaces')) || [];
-    const storedPlaces = storedIds.map((id) => AVAILABLE_PLACES.find((place) => place.id === id));
-    setPickedPlaces(storedPlaces);
-  }, []);
+
+
 
   useEffect(() => {
       navigator.geolocation.getCurrentPosition((position) => {
