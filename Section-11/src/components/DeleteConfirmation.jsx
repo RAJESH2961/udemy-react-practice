@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 export default function DeleteConfirmation({ onConfirm, onCancel }) {
 useEffect(() => {
   // Start a 3-second timer
@@ -16,7 +16,24 @@ useEffect(() => {
     console.log('Cleaning up timer');
   };
 
+}, [onConfirm]);
+
+const TIMER = 3000;
+const[remainingTime, setRemainingTime] = useState(TIMER);
+//Here if we dont use useEffect it will go to infinite loop so we need to use useEffect()
+useEffect(() => {
+  const interval = setInterval(() => {
+    console.log(TIMER);
+    
+  setRemainingTime(prevTime => prevTime-10);
+}, 10);
+return () => {
+  clearInterval(interval);  
+}
+
 }, []);
+
+
 
   return (
     <div id="delete-confirmation">
@@ -29,6 +46,8 @@ useEffect(() => {
         <button onClick={onConfirm} className="button">
           Yes
         </button>
+        {/* <progress/>//Built in function */}
+        <progress value={remainingTime} max={TIMER} />
       </div>
     </div>
   );
