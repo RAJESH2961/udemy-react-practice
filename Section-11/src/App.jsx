@@ -12,6 +12,13 @@ function App() {
   const selectedPlace = useRef();
   const [pickedPlaces, setPickedPlaces] = useState([]);
   const [availabePlaces, setAvailablePlaces] = useState([]);
+
+  useEffect(() =>{
+    const storedIds = JSON.parse(localStorage.getItem('selectedPlaces')) || [];
+    const storedPlaces = storedIds.map((id) => AVAILABLE_PLACES.find((place) => place.id === id));
+    setPickedPlaces(storedPlaces);
+  }, []);
+
   useEffect(() => {
       navigator.geolocation.getCurrentPosition((position) => {
     const sortedPlaces = sortPlacesByDistance(AVAILABLE_PLACES, position.coords.latitude, position.coords.longitude);
@@ -41,7 +48,7 @@ function App() {
     });
 
     //storing the places in localstorage
-    const storedIds = JSON.parse(localStorage.getItem('selectedPlaces')) \\ [];
+    const storedIds = JSON.parse(localStorage.getItem('selectedPlaces')) || [];
     if(storedIds.indexOf(id) === -1){
       localStorage.setItem(
         'selectedPlaces',
@@ -55,6 +62,13 @@ function App() {
       prevPickedPlaces.filter((place) => place.id !== selectedPlace.current)
     );
     modal.current.close();
+
+    const storedIds = JSON.parse(localStorage.getItem('selectedPlaces')) || [];
+    localStorage.setItem(
+      'selectedPlaces',
+      JSON.stringify(storedIds.filter((id) => id !== selectedPlace.current))
+    );
+
   }
 
   return (
