@@ -1,6 +1,7 @@
 import QUESTIONS from '../questions.js';
 import { useState } from "react";
 import quizCompleteImage from '../assets/quiz-complete.png'
+import QuestionTimer from './QuestionTimer.jsx';
 /**
  * Quiz component to display a list of questions one by one.
  * Tracks user-selected answers and renders the next question upon selection.
@@ -41,6 +42,7 @@ shuffledAnswers.sort(() => Math.random() - 0.5);
     <div id='quiz'>
     <div id="questions">
       {/* Display the current question text */}
+      <QuestionTimer timeout={10000} onTimeout={() => handleSelectAnswer(null)} />
       <h2>{QUESTIONS[activeQuestionIndex].text}</h2>
 
       {/* Render a button for each possible answer */}
