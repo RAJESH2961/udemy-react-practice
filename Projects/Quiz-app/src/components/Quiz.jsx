@@ -1,6 +1,6 @@
 import QUESTIONS from '../questions.js';
 import { useState } from "react";
-
+import quizCompleteImage from '../assets/quiz-complete.png'
 /**
  * Quiz component to display a list of questions one by one.
  * Tracks user-selected answers and renders the next question upon selection.
@@ -12,8 +12,8 @@ export default function Quiz() {
   // Derive the index of the current active question based on how many answers are selected
   const activeQuestionIndex = userAnswers.length;
 
-  const shuffledAnswers = [...QUESTIONS[activeQuestionIndex].answers];
-  shuffledAnswers.sort(() => Math.random() - 0.5);
+
+  const quizIsComplete = activeQuestionIndex === QUESTIONS.length;
 
   /**
    * Handles selection of an answer.
@@ -27,6 +27,15 @@ export default function Quiz() {
       return [...prevUserAnswer, selectedAnswer];
     });
   }
+
+  if(quizIsComplete){
+    return <div id='summary'>
+        <img src={quizCompleteImage} alt="Trophy icon" />
+        <h2>Quiz Completed!</h2>
+    </div>
+  }
+const shuffledAnswers = [...QUESTIONS[activeQuestionIndex].answers];
+shuffledAnswers.sort(() => Math.random() - 0.5);
 
   return (
     <div id='quiz'>
