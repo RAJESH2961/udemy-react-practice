@@ -12,6 +12,9 @@ export default function Quiz() {
   // Derive the index of the current active question based on how many answers are selected
   const activeQuestionIndex = userAnswers.length;
 
+  const shuffledAnswers = [...QUESTIONS[activeQuestionIndex].answers];
+  shuffledAnswers.sort(() => Math.random() - 0.5);
+
   /**
    * Handles selection of an answer.
    * Adds the selected answer to the userAnswers array.
@@ -33,7 +36,7 @@ export default function Quiz() {
 
       {/* Render a button for each possible answer */}
       <ul id="answers">
-        {QUESTIONS[activeQuestionIndex].answers.map((answer) => (
+        {shuffledAnswers.map((answer) => (
           <li key={answer} className="answer">
             <button onClick={() => handleSelectAnswer(answer)}>
             {/* passing tha answer to an handleselecterAnswer function*/}
