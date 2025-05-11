@@ -1,5 +1,5 @@
 import QUESTIONS from '../questions.js';
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import quizCompleteImage from '../assets/quiz-complete.png'
 import QuestionTimer from './QuestionTimer.jsx';
 /**
@@ -16,6 +16,7 @@ export default function Quiz() {
 
   const quizIsComplete = activeQuestionIndex === QUESTIONS.length;
 
+
   /**
    * Handles selection of an answer.
    * Adds the selected answer to the userAnswers array.
@@ -23,11 +24,16 @@ export default function Quiz() {
    * 
    * @param {string} selectedAnswer - The answer selected by the user.
    */
+  const handleSelectAnswer = useCallback(
   function handleSelectAnswer(selectedAnswer) {
     setUserAnswers((prevUserAnswer) => {
       return [...prevUserAnswer, selectedAnswer];
     });
-  }
+  },[]
+);
+
+    const handleSkipAnswer = useCallback(() => handleSelectAnswer(null),[handleSelectAnswer]);
+
 
   if(quizIsComplete){
     return <div id='summary'>
@@ -42,7 +48,7 @@ shuffledAnswers.sort(() => Math.random() - 0.5);
     <div id='quiz'>
     <div id="questions">
       {/* Display the current question text */}
-      <QuestionTimer timeout={10000} onTimeout={() => handleSelectAnswer(null)} />
+      <QuestionTimer timeout={10000} onTimeout={handleSkipAnswer} key={activeQuestionIndex} />
       <h2>{QUESTIONS[activeQuestionIndex].text}</h2>
 
       {/* Render a button for each possible answer */}
