@@ -17,7 +17,8 @@ setChosenCount(newCount)
       <Header />
       <main>
         <ConfigureCounter onSet={handleSetCOunt} />
-        <Counter initialCount={chosenCount} />
+        <Counter key ={chosenCount} initialCount={chosenCount} />
+        <Counter initialCount={12} />
       </main>
     </>
   );
