@@ -48,9 +48,14 @@ function App() {
     setUserPlaces((prevPickedPlaces) =>
       prevPickedPlaces.filter((place) => place.id !== selectedPlace.current.id)
     );
-
-    setModalIsOpen(false);
-  }, []);
+    try{
+      await updateUserPlaces(userPlaces.filter((place) => place.id !== selectedPlace.current.id));
+      setModalIsOpen(false);
+    } catch (error) {
+      setUserPlaces(userPlaces);
+      setErrorUpdatingPlaces({message : error.message || 'Failed to delete place'})
+    }
+  }, [updateUserPlaces]);//In dependency the function is recreated when the updated places are changed.
 
 function handleError(){
   setErrorUpdatingPlaces(null);
