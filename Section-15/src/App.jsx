@@ -44,18 +44,22 @@ function App() {
 
   }
 
-  const handleRemovePlace = useCallback(async function handleRemovePlace() {
-    setUserPlaces((prevPickedPlaces) =>
-      prevPickedPlaces.filter((place) => place.id !== selectedPlace.current.id)
-    );
-    try{
-      await updateUserPlaces(userPlaces.filter((place) => place.id !== selectedPlace.current.id));
-      setModalIsOpen(false);
-    } catch (error) {
-      setUserPlaces(userPlaces);
-      setErrorUpdatingPlaces({message : error.message || 'Failed to delete place'})
-    }
-  }, [updateUserPlaces]);//In dependency the function is recreated when the updated places are changed.
+const handleRemovePlace = useCallback(async function handleRemovePlace() {
+  setUserPlaces((prevPickedPlaces) => {
+    const updatedPlaces = prevPickedPlaces.filter((place) => place.id !== selectedPlace.current.id);
+    
+    // Immediately update the backend with the correct updatedPlaces
+    updateUserPlaces(updatedPlaces).catch(error => {
+      setErrorUpdatingPlaces({ message: error.message || 'Failed to delete place' });
+      // Restore previous state if needed
+      setUserPlaces(prevPickedPlaces);
+    });
+
+    return updatedPlaces;
+  });
+
+  setModalIsOpen(false);
+}, [updateUserPlaces]);
 
 function handleError(){
   setErrorUpdatingPlaces(null);
