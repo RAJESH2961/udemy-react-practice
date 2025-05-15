@@ -14,6 +14,23 @@ export async function fetchAvailablePlaces() {
   }
 }
 
+
+export async function fetchUserPlaces() {
+  try {
+    const response = await fetch('http://localhost:3000/user-places');
+    const resData = await response.json();
+
+    if (!response.ok) {
+      throw new Error(resData.message || 'Failed to fetch user places');
+    }
+
+    return resData.places;
+  } catch (error) {
+    console.error('Error fetching user places:', error);
+    throw error;
+  }
+}
+
 //method to send data to backend
 export async function updateUserPlaces(places) {
   const response = await fetch('http://localhost:3000/user-places', {
