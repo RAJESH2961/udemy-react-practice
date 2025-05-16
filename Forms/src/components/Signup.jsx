@@ -1,31 +1,24 @@
 export default function Signup() {
   function handleSubmit(event) {
     event.preventDefault();
-    console.log(event);
-    console.log(event.target);
+    // console.log(event);
+    // console.log(event.target);
     
 
-    const fd = new FormData(event.target);
-
-    const enteredEmail = fd.get("email");
-    const enteredPassword = fd.get("password");
-    const confirmPassword = fd.get("confirm-password");
-    const firstName = fd.get("first-name");
-    const lastName = fd.get("last-name");
-    const role = fd.get("role");
-    const acquisitions = fd.getAll("acquisition"); // multiple checkboxes
-    const termsAccepted = fd.get("terms");
-
-    // console.log("Email:", enteredEmail);
-    // console.log("Password:", enteredPassword);
-    // console.log("Confirm Password:", confirmPassword);
-    // console.log("First Name:", firstName);
-    // console.log("Last Name:", lastName);
-    // console.log("Role:", role);
-    // console.log("Acquisition Sources:", acquisitions);
-    // console.log("Accepted Terms:", termsAccepted === "on");
+// Create a new FormData object from the submitted form (event.target refers to the <form> element)
+const fd = new FormData(event.target);
+// Get all checked values from checkboxes with the name "acquisition"
+// This returns an array of all selected options (e.g., ['google', 'friend'])
+const acquisitionChannel = fd.getAll('acquisition');
+// Convert the FormData entries (key-value pairs) into a plain JavaScript object
+// Note: For fields with multiple values (like checkboxes), only the first one will be included here
+const data = Object.fromEntries(fd.entries());
+// Replace the single acquisition value with the array of all selected values
+// This ensures we capture all selected checkboxes, not just the first one
+data.acquisition = acquisitionChannel;
+// Log the final form data object to the console for debugging or further processing
+console.log(data);
   }
-
   return (
     <form onSubmit={handleSubmit}>
       <h2>Welcome on board!</h2>
