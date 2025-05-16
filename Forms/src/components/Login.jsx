@@ -7,6 +7,8 @@ export default function Login() {
     event.preventDefault();
     console.log(email.current.value);
     console.log(password.current.value);
+    event.target.email='';
+    event.target.password='';
   }
 
   return (

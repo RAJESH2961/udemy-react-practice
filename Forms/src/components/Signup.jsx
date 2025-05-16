@@ -18,6 +18,8 @@ const data = Object.fromEntries(fd.entries());
 data.acquisition = acquisitionChannel;
 // Log the final form data object to the console for debugging or further processing
 console.log(data);
+//Resetting form
+event.target.reset();
   }
   return (
     <form onSubmit={handleSubmit}>
