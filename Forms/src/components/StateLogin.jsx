@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Input from "./Input"; // Assumes you have a reusable Input component
 
 export default function Login() {
   // State to store input values for email and password
@@ -13,18 +14,40 @@ export default function Login() {
     password: false
   });
 
-  // Email validation logic – show error only after blur and if '@' is missing
+  // Email and Password validation rules
   const emailIsInvalid = didEdit.email && !enteredValues.email.includes('@');
+  const passwordIsInvalid = didEdit.password && enteredValues.password.trim().length < 6;
 
   // Handle form submit
   function handleSubmit(event) {
-    event.preventDefault(); // Prevents default form submission
-    console.log('submitted');
+    event.preventDefault(); // Prevent default form submission
 
-    // Reset form fields after submission
+    // Force show validation errors
+    setDidEdit({
+      email: true,
+      password: true
+    });
+
+    const emailValid = enteredValues.email.includes('@');
+    const passwordValid = enteredValues.password.trim().length >= 6;
+
+    if (!emailValid || !passwordValid) {
+      // Stop submission if validation fails
+      return;
+    }
+
+    // Proceed only if inputs are valid
+    console.log('Form submitted successfully!', enteredValues);
+
+    // Reset form values and interaction tracking
     setEnteredValues({
       email: '',
       password: ''
+    });
+
+    setDidEdit({
+      email: false,
+      password: false
     });
   }
 
@@ -35,14 +58,14 @@ export default function Login() {
       [identifier]: value
     }));
 
-    // Reset 'didEdit' flag while user is typing again
+    // Reset 'didEdit' while typing again
     setDidEdit(prevEdit => ({
       ...prevEdit,
       [identifier]: false
     }));
   }
 
-  // Handle blur (when user leaves input field)
+  // Handle blur (user leaves input field)
   function handleInputBlur(identifier) {
     setDidEdit(prevEdit => ({
       ...prevEdit,
@@ -55,35 +78,29 @@ export default function Login() {
       <h2>Login</h2>
 
       <div className="control-row">
-
         {/* Email Field */}
-        <div className="control no-margin">
-          <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            type="email"
-            name="email"
-            onBlur={() => handleInputBlur('email')}
-            onChange={(event) => handleInputChange('email', event.target.value)}
-            value={enteredValues.email}
-          />
-          {/* Error message shown only if email is invalid and blurred */}
-          <div className="control-error">
-            {emailIsInvalid && <p>Please enter a valid email address</p>}
-          </div>
-        </div>
+        <Input 
+          label="Email" 
+          id="email" 
+          type="email" 
+          name="email" 
+          onBlur={() => handleInputBlur('email')}
+          onChange={(event) => handleInputChange('email', event.target.value)}
+          value={enteredValues.email} 
+          error={emailIsInvalid && 'Please enter a valid email address!'}
+        />
 
         {/* Password Field */}
-        <div className="control no-margin">
-          <label htmlFor="password">Password</label>
-          <input
-            id="password"
-            type="password"
-            name="password"
-            onChange={(event) => handleInputChange('password', event.target.value)}
-            value={enteredValues.password}
-          />
-        </div>
+        <Input 
+          label="Password" 
+          id="password" 
+          type="password" 
+          name="password" 
+          onBlur={() => handleInputBlur('password')}
+          onChange={(event) => handleInputChange('password', event.target.value)}
+          value={enteredValues.password} 
+          error={passwordIsInvalid && 'Password must be at least 6 characters long!'}
+        />
       </div>
 
       {/* Form buttons */}
