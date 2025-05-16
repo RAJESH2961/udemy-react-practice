@@ -1,4 +1,7 @@
+import { useState } from "react";
+
 export default function Signup() {
+    const [passwordsAreNotEqual, setPasswordsAreNotEqual] = useState(false);
   function handleSubmit(event) {
     event.preventDefault();
     // console.log(event);
@@ -17,6 +20,11 @@ const data = Object.fromEntries(fd.entries());
 // This ensures we capture all selected checkboxes, not just the first one
 data.acquisition = acquisitionChannel;
 // Log the final form data object to the console for debugging or further processing
+
+if(data.password !== data['confirm-password']) {
+    setPasswordsAreNotEqual(true);
+    return;
+}
 console.log(data);
 //Resetting form
 event.target.reset();
@@ -45,6 +53,7 @@ event.target.reset();
             name="confirm-password"
             required
           />
+          <div className="control-error">{passwordsAreNotEqual && <p>Passwords must match</p>}</div>
         </div>
       </div>
 
