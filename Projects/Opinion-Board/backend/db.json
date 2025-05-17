@@ -1,6 +1,20 @@
 {
   "opinions": [
     {
+      "id": 1747476832492,
+      "votes": 0,
+      "userName": "rajesh2906",
+      "title": "rararararara",
+      "body": "import React from 'react';\n\nexport default function Spinner({ size = 24, color = '#3b82f6' }) {\n  const borderWidth = size / 8;\n\n  return (\n    <>\n\n"
+    },
+    {
+      "id": 1747476700761,
+      "votes": 0,
+      "userName": "Rajesh",
+      "title": "RajeshRajesh",
+      "body": "RajeshRajeshRajeshRajesh"
+    },
+    {
       "id": 1747475977199,
       "votes": 0,
       "userName": "Rajesh",
