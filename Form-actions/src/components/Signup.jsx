@@ -1,6 +1,56 @@
+import { isEmail, isNotEmpty,hasMinLength,isEqualToOtherValue } from "../util/validation";
 export default function Signup() {
+  async function signupAction(formData) {
+    const email = formData.get('email');
+    const password = formData.get('password');
+    const confirmPassword = formData.get('confirm-password');
+    const firstName = formData.get('first-name');
+    const lastName = formData.get('last-name');
+    const role = formData.get('role');
+    const termsAccepted = formData.get('terms'); // 'on' if checked, null if not
+
+    // `acquisition` is a checkbox group, so use getAll() to get all checked values
+    const acquisitionSources = formData.getAll('acquisition');
+
+    // Example: Logging all extracted values
+    console.log({
+      email,
+      password,
+      confirmPassword,
+      firstName,
+      lastName,
+      role,
+      acquisitionSources,
+      termsAccepted,
+    });
+
+    // You can now perform validation or send this data to an API
+    let errors = [];
+    if(!isEmail(email)){
+      errors.push('Invalid Email address.');
+    }
+    if(!isNotEmpty(password) || !hasMinLength(password, 6)){
+      errors.push('You must provide a password with atleast 6 characters')
+    }
+    if(!isEqualToOtherValue(password, confirmPassword)){
+      eoors.push('Passwords doesnt match')
+    }
+    if(!isNotEmpty(firstName) || !isNotEmpty(lastName)){
+      errors.push('please provide both your first and last name ');
+    }
+    if(!isNotEmpty(role)){
+      errors.push('Please select a role.')
+    }
+    if(!termsAccepted){
+      errors.push("YOu must agree to the terms and conditions")
+    }
+    if(acquisitionSources.length === 0) {
+      errors.push('Please select at least one acquisitionSources')
+    }
+  }
+
   return (
-    <form>
+    <form action={signupAction}>
       <h2>Welcome on board!</h2>
       <p>We just need a little bit of data from you to get you started 🚀</p>
 
@@ -80,8 +130,8 @@ export default function Signup() {
 
       <div className="control">
         <label htmlFor="terms-and-conditions">
-          <input type="checkbox" id="terms-and-conditions" name="terms" />I
-          agree to the terms and conditions
+          <input type="checkbox" id="terms-and-conditions" name="terms" />
+          I agree to the terms and conditions
         </label>
       </div>
 
