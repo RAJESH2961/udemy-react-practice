@@ -1,0 +1,46 @@
+{
+  "opinions": [
+    {
+      "id": 1747476832492,
+      "votes": -2,
+      "userName": "rajesh2906",
+      "title": "rararararara",
+      "body": "import React from 'react';\n\nexport default function Spinner({ size = 24, color = '#3b82f6' }) {\n  const borderWidth = size / 8;\n\n  return (\n    <>\n\n"
+    },
+    {
+      "id": 1747476700761,
+      "votes": -1,
+      "userName": "Rajesh",
+      "title": "RajeshRajesh",
+      "body": "RajeshRajeshRajeshRajesh"
+    },
+    {
+      "id": 1747475977199,
+      "votes": 0,
+      "userName": "Rajesh",
+      "title": "Hello World",
+      "body": "Hello WorldHello WorldHello WorldHello World"
+    },
+    {
+      "id": 1747474674147,
+      "votes": 0,
+      "userName": "Rajesh",
+      "title": "fsfdsfsfs",
+      "body": "fsfdsfsfsfsfdsfsfsfsfdsfsfsfsfdsfsfs"
+    },
+    {
+      "id": 1,
+      "userName": "Maximilian Schwarzmüller",
+      "title": "Do yourself a favor and learn React!",
+      "body": "React is an amazing JavaScript library!\n\nDespite all it's shortcomings.",
+      "votes": 0
+    },
+    {
+      "id": 2,
+      "userName": "Maximilian Schwarzmüller",
+      "title": "React has more depth than you might first think!",
+      "body": "React is a great library to learn, but it's not just about the basics. Dive deeper!\nFor example with this course!",
+      "votes": 0
+    }
+  ]
+}
