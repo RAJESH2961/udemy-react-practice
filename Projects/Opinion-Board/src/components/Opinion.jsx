@@ -1,13 +1,18 @@
-import { use,useActionState } from "react";
+import { use,useActionState,useOptimistic } from "react";
+import Spinner from "./Spinner";
 import { OpinionsContext } from "../store/opinions-context";
 export function Opinion({ opinion: { id, title, body, userName, votes } }) {
   const { upvoteOpinion, downvoteOpinion } = use(OpinionsContext);
+
+  const [optimisticVotes, setVotesOptimistically] = useOptimistic(votes, (prevVotes, mode) => mode === 'up' ? prevVotes + 1 : prevVotes - 1);
   async function upvoteAction (){
     // console.log('UPVOTE');
+    setVotesOptimistically('up');
     await upvoteOpinion(id);
   }
   async function downvoteAction (){
     // console.log('DOWNVOTE'); 
+    setVotesOptimistically('down');
     await downvoteOpinion(id);
   }
   const [upvoteFormState, upvoteFormAction, upvotePending] = useActionState(upvoteAction);
@@ -21,7 +26,8 @@ export function Opinion({ opinion: { id, title, body, userName, votes } }) {
       <p>{body}</p>
       <form className="votes">
         <button formAction={upvoteFormAction} disabled={upvotePending || downvotePending}>
-          <svg
+          { upvotePending ? (<Spinner size={18} />) : (
+            <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
@@ -36,12 +42,16 @@ export function Opinion({ opinion: { id, title, body, userName, votes } }) {
             <path d="m16 12-4-4-4 4" />
             <path d="M12 16V8" />
           </svg>
+          )}
+          
         </button>
 
-        <span>{votes}</span>
+        <span>{optimisticVotes}</span>
 
         <button formAction={downvoteFormAction} disabled={upvotePending || downvotePending}>
-          <svg
+          {downvotePending ? (
+    <Spinner size={18} />
+  ) : (<svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
@@ -55,7 +65,8 @@ export function Opinion({ opinion: { id, title, body, userName, votes } }) {
             <rect width="18" height="18" x="3" y="3" rx="2" />
             <path d="M12 8v8" />
             <path d="m8 12 4 4 4-4" />
-          </svg>
+          </svg>)}
+          
         </button>
       </form>
     </article>
