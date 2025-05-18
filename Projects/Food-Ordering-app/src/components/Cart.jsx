@@ -23,7 +23,8 @@ export default function Cart(){
 
     const cartTotal = cartCtx.items.reduce((totalPrice, item) => totalPrice+item.quantity * item.price, 0);
     // If it is equal to cart the Modal will be opened
-    return <Modal className="cart" open={userProgressCtx.progress === 'cart'} onClose={handleCloseCart}>
+    return <Modal className="cart" open={userProgressCtx.progress === 'cart'} onClose={userProgressCtx.progress === 'cart' ? handleCloseCart : null}>
+        {/* onClose={userProgressCtx.progress === 'cart' ? handleCloseCart : null  fix : to show checkout form */ }
         <h2>Your cart</h2>
         <ul>
             {cartCtx.items.map(item => (<CartItem key={item.id} name={item.name} quantity={item.quantity} price={item.price} onIncrease={() => cartCtx.addItem(item)} onDecrease={() => cartCtx.removeItem(item.id)} />))}
