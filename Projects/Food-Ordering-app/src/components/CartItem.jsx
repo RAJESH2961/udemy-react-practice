@@ -9,7 +9,7 @@ export default function CartItem({name, quantity, price, onIncrease, onDecrease}
             {/* In the end both will call the add item to cart and remove item from cart function which is located in CartContect */}
             {/* the parent component have the acess to context */}
             <button onClick={onDecrease}>-</button>
-            <span>Qty</span>
+            <span>{quantity}</span>
             <button onClick={onIncrease}>+</button>
         </p>
     </li>

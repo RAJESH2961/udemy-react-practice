@@ -16,6 +16,10 @@ export default function Cart(){
         userProgressCtx.hideCart();
     }
 
+    function handleGoToCheckout(){
+        userProgressCtx.showCheckout();
+    }
+
 
     const cartTotal = cartCtx.items.reduce((totalPrice, item) => totalPrice+item.quantity * item.price, 0);
     // If it is equal to cart the Modal will be opened
@@ -27,7 +31,8 @@ export default function Cart(){
         <p className="cart-total">{currencyFormatter.format(cartTotal)}</p>
         <p className="modal-actions">
             <Button textOnly onClick={handleCloseCart}>Close</Button>
-            <Button onClick={handleCloseCart}>Go to checkout</Button>
+            {/* //Conditionally rendering if no items present we dont need to checkout */}
+            {cartCtx.items.length > 0 && <Button onClick={handleGoToCheckout}>Go to checkout</Button>}
         </p>
     </Modal>
 }
