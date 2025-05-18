@@ -1,6 +1,6 @@
 import { createContext, useReducer, useState } from "react";
 
-const cartContext = createContext({
+const CartContext = createContext({
     items: [],
     addItem: (item) => {},
     removeItem: (id) => {}
@@ -21,7 +21,7 @@ function cartReducer(state,action){
 
         //if it is >-1 that element is exist in the items[]
         if(existingCartItemIndex > -1){
-            const existingItem = state.items[existingCartItemIndex]
+            const existingItem = updatedItems[existingCartItemIndex]
             const updatedItem = {
                 ...existingItem,
                 quantity: existingItem.quantity +1
@@ -69,14 +69,20 @@ export function CartContextProvider({ children }) {
         dispatchCartAction({type : 'ADD_ITEM', item: item});
     }
     function removeItem(id){
-        dispatchCartAction({type : 'REMOVE_ITEM', id: id});
+        dispatchCartAction({type : 'REMOVE_ITEM', id});
     }
     const cartContext = {
         items: cart.items,
         addItem,
         removeItem
     }
-    return <cartContext value={cartContext}>{children}</cartContext>
+    console.log(cartContext);
+    
+    return (
+        <CartContext.Provider value={cartContext}>
+            {children}
+        </CartContext.Provider>
+    );
 }
 
-export default cartContext;
+export default CartContext;
