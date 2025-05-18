@@ -1,4 +1,5 @@
 import { currencyFormatter } from "../util/formatting"
+import Button from "./UI/Button"
 
 export default function MealItem({meal}) {// we can also accept the one prop object or we can accept seperate
     return <li className="meal-item">
@@ -10,7 +11,7 @@ export default function MealItem({meal}) {// we can also accept the one prop obj
                 <p className="meal-item-description">{meal.description}</p>
             </div>
             <p className="meal-item-actions">
-                <button>Add to cart</button>
+                <Button>Add to cart</Button>
             </p>
         </article>
     </li>
