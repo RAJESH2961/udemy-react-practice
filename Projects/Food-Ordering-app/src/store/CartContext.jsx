@@ -5,7 +5,8 @@ import { createContext, useReducer, useState } from "react";
 const CartContext = createContext({
     items: [],                     // Array to store cart items
     addItem: (item) => {},         // Function to add item (placeholder)
-    removeItem: (id) => {}         // Function to remove item (placeholder)
+    removeItem: (id) => {},        // Function to remove item (placeholder)
+    clearCart: () => {}
 });
 
 // ✅ Reducer function to manage cart state
@@ -70,6 +71,11 @@ function cartReducer(state, action) {
         return { ...state, items: updatedItems };
     }
 
+    // Clearing cart
+    if(action.type === 'CLEAR_CART'){
+        return {...state, items: []};
+    }
+
     // Default: return current state if action type doesn't match
     return state;
 }
@@ -89,11 +95,19 @@ export function CartContextProvider({ children }) {
         dispatchCartAction({ type: 'REMOVE_ITEM', id });
     }
 
+    //Clear cart
+    function clearCart() {
+        dispatchCartAction({ type: 'CLEAR_CART' })
+    }
+
+    
+
     // Context value that will be provided to consumers
     const cartContext = {
         items: cart.items,
         addItem,
-        removeItem
+        removeItem,
+        clearCart
     };
 
     // For debugging: log current context state
