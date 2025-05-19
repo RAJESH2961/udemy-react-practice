@@ -10,7 +10,7 @@ async function sendHttpRequest(url, config) {
     return resData;
 }
 
-export default function useHttp(url, config = {}, initialData = []) {
+export default function useHttp(url, config = {}, initialData = null) {
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [data, setData] = useState(initialData);
