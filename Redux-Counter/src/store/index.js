@@ -12,6 +12,13 @@ const counterReducer = (state = {counter: 0}, action) => {
         }
     }
 
+    //Increasing value bu 5
+    if(action.type === 'increase') {
+        return {
+            counter: state.counter + action.value,
+        }
+    }
+
     return state;
 };
 
