@@ -2,6 +2,8 @@
 import classes from './Counter.module.css';
 import { useSelector, useDispatch } from 'react-redux';// useSelector is a hook developed by react-redux
 
+import { counterActions } from '../store';
+
 const Counter = () => {
   const dispatch = useDispatch();// It will return an function we can pass arguments to it 
 
@@ -12,24 +14,25 @@ const Counter = () => {
   
   const increamentHandler = () => {
     // when we call this function it will dispatch an action against our react store
-    dispatch({ type: 'increament' })
+    dispatch(counterActions.increament())
   };
   const decrementHandler = () => {
-    dispatch({ type: 'decreament' })
+    dispatch(counterActions.decrement())
   };
 
   //Increamrnt by 5
     const increaseHandler = () => {
-    dispatch({ type: 'increase', value:5 })// attaching payloads to actions
+    dispatch(counterActions.increase(5)) //{ type: 'SOME_UNIQUE_IDENTIFIER, payload: 5 } internally passes
+    //Always the 2nd argument is payload the first one is unique indentifier
   };
   // Calling toggle state in the redux
   const toggleCounterHandler = () => {
-    dispatch({ type: 'toggle' })
+    dispatch(counterActions.toggle())
   };
 
     // CallingReset in the redux
   const resetCounter = () => {
-    dispatch({ type: 'resetCounter' })
+    dispatch(counterActions.reset())
   };
 
   return (

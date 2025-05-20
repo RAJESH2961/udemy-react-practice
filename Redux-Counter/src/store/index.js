@@ -28,12 +28,16 @@ const counterSlice = createSlice({
 
         // Action to increase the counter by a dynamic value (provided via action.payload)
         increase(state, action) {
-            state.counter = state.counter + action.payload; // Not action.amount
+            state.counter = state.counter + action.payload; // Note the payload name should be same because redux toolkit uses internally
         },
 
         // Action to toggle the visibility of the counter
         toggle(state) {
             state.showCounter = !state.showCounter; // Flips true/false
+        },
+        // Action to toggle the visibility of the counter
+        reset(state) {
+            state.counter = initialState.counter
         }
     }
 });
@@ -45,3 +49,8 @@ const store = configureStore({
 
 // 🔹 Exporting the store so it can be provided to the React app
 export default store;
+
+// Export the actions to use them in components
+export const counterActions = counterSlice.actions;
+
+// these actions will contain all the methods declered in slice
