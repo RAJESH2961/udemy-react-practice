@@ -6,6 +6,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { uiActions } from './store/ui-slice';
 import Notification from './components/UI/Notification';
 
+// The problem is when some data is in backend firebase
+// If app component mounted for the first time the data in database is lost
+// SO to prevent this we need to maintain a variable
+let isInitial = true;
+
 function App() {
   const showCart =  useSelector(state => state.ui.cartisVisible);
   const dispatch = useDispatch();
@@ -37,6 +42,11 @@ function App() {
     // const responseData = await response.json();
 
     };
+
+    if(isInitial) {
+      isInitial = false;
+      return;
+    }
 
     //calling the function this is async so it retun a promise
     sendCartData().catch((error) =>{
