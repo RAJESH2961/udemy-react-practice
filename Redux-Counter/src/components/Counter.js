@@ -5,6 +5,8 @@ const Counter = () => {
   const dispatch = useDispatch();// It will return an function we can pass arguments to it 
 
   const counter = useSelector(state => state.counter);// Accepts function and executed bu redux-react
+
+  const show = useSelector(state => state.showCounter);
   
   const increamentHandler = () => {
     // when we call this function it will dispatch an action against our react store
@@ -19,12 +21,14 @@ const Counter = () => {
     dispatch({ type: 'increase', value:5 })// attaching payloads to actions
   };
   
-  const toggleCounterHandler = () => {};
+  const toggleCounterHandler = () => {
+    dispatch({ type: 'toggle' })
+  };
 
   return (
     <main className={classes.counter}>
       <h1>Redux Counter</h1>
-      <div className={classes.value}>{counter+1}</div>
+      { show && <div className={classes.value}>{counter+1}</div> }
       <div className='counter'>
         <button onClick={increamentHandler}>Increament</button>
         <button onClick={decrementHandler}>Decrement</button>
