@@ -1,3 +1,6 @@
+//index.js 
+// Here the showCOunter is added to work eith multiple states
+// it will be false when i click toggle button in Counter.js
 import { createStore } from 'redux';
 
 const initialState = { counter: 0, showCounter: true }
@@ -23,7 +26,9 @@ const counterReducer = (state = initialState, action) => {
             showCounter: state.showCounter
         }
     }
-
+		// Setting the state to false when it is triggered
+		// Setting the state to true when it is triggered
+		// SO that we can toggle between states
     if(action.type === 'toggle'){
         return{
             showCounter: !state.showCounter,
