@@ -27,16 +27,22 @@ const Counter = () => {
     dispatch({ type: 'toggle' })
   };
 
+    // CallingReset in the redux
+  const resetCounter = () => {
+    dispatch({ type: 'resetCounter' })
+  };
+
   return (
     <main className={classes.counter}>
       <h1>Redux Counter</h1>
-      { show && <div className={classes.value}>{counter+1}</div> }
+      { show && <div className={classes.value}>{counter}</div> }
       <div className='counter'>
         <button onClick={increamentHandler}>Increament</button>
         <button onClick={decrementHandler}>Decrement</button>
         <button onClick={increaseHandler}>Increament by 5</button>
       </div>
       <button onClick={toggleCounterHandler}>Toggle Counter</button>
+      <button onClick={resetCounter}>Reset Counter</button>
     </main>
   );
 };

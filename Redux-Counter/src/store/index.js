@@ -36,6 +36,14 @@ const counterReducer = (state = initialState, action) => {
         }
     }
 
+
+        if(action.type === 'resetCounter'){
+        return{
+            showCounter: state.showCounter,
+            counter: initialState.counter
+        }
+    }
+
     return state;
 };
 
