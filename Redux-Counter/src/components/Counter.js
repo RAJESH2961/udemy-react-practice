@@ -7,10 +7,10 @@ import { counterActions } from '../store';
 const Counter = () => {
   const dispatch = useDispatch();// It will return an function we can pass arguments to it 
 
-  const counter = useSelector(state => state.counter);// Accepts function and executed bu redux-react
+  const counter = useSelector(state => state.counter.counter);// Accepts function and executed bu redux-react
 	// Here the show will get the state true or false 
 	// According to that the div will be toggles
-  const show = useSelector(state => state.showCounter);
+  const show = useSelector(state => state.counter.showCounter);
   
   const increamentHandler = () => {
     // when we call this function it will dispatch an action against our react store

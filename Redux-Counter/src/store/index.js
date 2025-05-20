@@ -1,56 +1,80 @@
-// Importing functions from Redux Toolkit
+// 🔹 Importing helper functions from Redux Toolkit
 import { createSlice, configureStore } from '@reduxjs/toolkit';
 
-// 🔹 Initial state with two properties: counter and showCounter
-// counter is a number; showCounter is a boolean used to toggle UI display
-const initialState = { counter: 0, showCounter: true }
+// 🔹 Initial state for the counter slice
+//    - counter: numeric value
+//    - showCounter: boolean flag to toggle counter visibility
+const initialCounterState = {
+    counter: 0,
+    showCounter: true
+};
 
-// 🔹 Creating a Redux slice for the counter feature
+// 🔹 Creating the counter slice using createSlice()
 const counterSlice = createSlice({
-    // Unique name for the slice (used to prefix action types like 'counter/increment')
-    name: 'counter',
-
-    // Initial state for this slice
-    initialState,
-
-    // Reducer functions to handle different actions
+    name: 'counter', // Unique slice name (used in action types)
+    initialState: initialCounterState,
     reducers: {
-        // Action to increment the counter by 1
+        // Increment counter by 1
         increament(state) {
-            // Redux Toolkit uses Immer, so direct state mutation is allowed here
-            state.counter++;
+            state.counter++; // Immer handles mutation safely
         },
 
-        // Action to decrement the counter by 1
+        // Decrement counter by 1
         decrement(state) {
             state.counter--;
         },
 
-        // Action to increase the counter by a dynamic value (provided via action.payload)
+        // Increase counter by a dynamic payload value
         increase(state, action) {
-            state.counter = state.counter + action.payload; // Note the payload name should be same because redux toolkit uses internally
+            state.counter += action.payload;
         },
 
-        // Action to toggle the visibility of the counter
+        // Toggle the visibility of the counter
         toggle(state) {
-            state.showCounter = !state.showCounter; // Flips true/false
+            state.showCounter = !state.showCounter;
         },
-        // Action to toggle the visibility of the counter
+
+        // Reset counter to its initial value
         reset(state) {
-            state.counter = initialState.counter
+            state.counter = initialCounterState.counter;
         }
     }
 });
 
-// 🔹 Creating and configuring the Redux store with the reducer from our slice
-const store = configureStore({
-    reducer: counterSlice.reducer // You can also use { counter: counterSlice.reducer } for named slices
+// 🔹 Initial state for authentication slice
+const intialAuthState = {
+    isAuthenticated: false
+};
+
+// 🔹 Creating the authentication slice
+const authSlice = createSlice({
+    name: 'authentication', // Slice name
+    initialState: intialAuthState,
+    reducers: {
+        // Set authentication to true
+        login(state) {
+            state.isAuthenticated = true;
+        },
+
+        // Set authentication to false
+        logout(state) {
+            state.isAuthenticated = false;
+        }
+    }
 });
 
-// 🔹 Exporting the store so it can be provided to the React app
+// 🔹 Configuring the store with multiple reducers
+const store = configureStore({
+    reducer: {
+        counter: counterSlice.reducer,  // State managed under `state.counter`
+        auth: authSlice.reducer         // State managed under `state.auth`
+    }
+});
+
+// 🔹 Exporting the configured store
 export default store;
 
-// Export the actions to use them in components
+// 🔹 Exporting the auto-generated actions from both slices
+// These will be used inside components to dispatch actions
 export const counterActions = counterSlice.actions;
-
-// these actions will contain all the methods declered in slice
+export const authActions = authSlice.actions;
