@@ -2,7 +2,7 @@
 import classes from './Counter.module.css';
 import { useSelector, useDispatch } from 'react-redux';// useSelector is a hook developed by react-redux
 
-import { counterActions } from '../store';
+import { counterActions } from '../store/counter';
 
 const Counter = () => {
   const dispatch = useDispatch();// It will return an function we can pass arguments to it 
