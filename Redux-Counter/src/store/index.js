@@ -1,88 +1,47 @@
-import { createSlice } from '@reduxjs/toolkit';
-//index.js 
-// Here the showCOunter is added to work eith multiple states
-// it will be false when i click toggle button in Counter.js
-import { createStore } from 'redux';
+// Importing functions from Redux Toolkit
+import { createSlice, configureStore } from '@reduxjs/toolkit';
 
+// 🔹 Initial state with two properties: counter and showCounter
+// counter is a number; showCounter is a boolean used to toggle UI display
 const initialState = { counter: 0, showCounter: true }
 
-
-// Creating a slice of the Redux state for the "counter" feature
-createSlice({
-    // Unique name for this slice (used in action types like 'counter/increament')
+// 🔹 Creating a Redux slice for the counter feature
+const counterSlice = createSlice({
+    // Unique name for the slice (used to prefix action types like 'counter/increment')
     name: 'counter',
 
-    // Initial state of this slice
+    // Initial state for this slice
     initialState,
 
-    // Reducers: Define how the state should change based on actions
+    // Reducer functions to handle different actions
     reducers: {
-        // Increments the counter value by 1
+        // Action to increment the counter by 1
         increament(state) {
-            // Thanks to Immer (used internally by Redux Toolkit), we can safely mutate state
+            // Redux Toolkit uses Immer, so direct state mutation is allowed here
             state.counter++;
         },
 
-        // Decrements the counter value by 1
+        // Action to decrement the counter by 1
         decrement(state) {
             state.counter--;
         },
 
-        // Increases the counter by a custom value passed in the action payload
+        // Action to increase the counter by a dynamic value (provided via action.payload)
         increase(state, action) {
-            // action.payload is preferred over action.amount
-            state.counter = state.counter + action.payload;
+            state.counter = state.counter + action.payload; // Not action.amount
         },
 
-        // Toggles the visibility of the counter (true <-> false)
+        // Action to toggle the visibility of the counter
         toggle(state) {
-            state.showCounter = !state.showCounter;
+            state.showCounter = !state.showCounter; // Flips true/false
         }
     }
 });
 
-const counterReducer = (state = initialState, action) => {
-    if(action.type === 'increament') {
-        return {
-            counter: state.counter + 1,
-            showCounter: state.showCounter
-        }
-    }
-    if(action.type === 'decreament') {
-        return {
-            counter: state.counter - 1,
-            showCounter: state.showCounter
-        }
-    }
+// 🔹 Creating and configuring the Redux store with the reducer from our slice
+const store = configureStore({
+    reducer: counterSlice.reducer // You can also use { counter: counterSlice.reducer } for named slices
+});
 
-    //Increasing value bu 5
-    if(action.type === 'increase') {
-        return {
-            counter: state.counter + action.value,
-            showCounter: state.showCounter
-        }
-    }
-		// Setting the state to false when it is triggered
-		// Setting the state to true when it is triggered
-		// SO that we can toggle between states
-    if(action.type === 'toggle'){
-        return{
-            showCounter: !state.showCounter,
-            counter: state.counter
-        }
-    }
-
-
-        if(action.type === 'resetCounter'){
-        return{
-            showCounter: state.showCounter,
-            counter: initialState.counter
-        }
-    }
-
-    return state;
-};
-
-const store = createStore(counterReducer);
-
+// 🔹 Exporting the store so it can be provided to the React app
 export default store;
