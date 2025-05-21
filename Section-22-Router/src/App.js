@@ -11,6 +11,7 @@ import HomePage from './components/HomePage';
 import Products from './components/Products';
 import RootLayout from './components/Root';
 import ErrorPage from './components/Error';
+import ProductDetailPage from './components/ProductDetail';
 
 // -------------------------
 // Method-1 (Object based routing) - ACTIVE
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: 'products',  // No leading slash needed here
         element: <Products />,
+      },
+      {
+        path: 'products/:productId',  // placeholder to get id
+        element: <ProductDetailPage />,
       },
     ],
   }
