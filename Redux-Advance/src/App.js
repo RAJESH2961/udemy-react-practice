@@ -4,7 +4,7 @@ import Layout from './components/Layout/Layout';
 import Products from './components/Shop/Products';
 import { useSelector, useDispatch } from 'react-redux';
 import Notification from './components/UI/Notification';
-import { sendCartData } from './store/cart-slice';
+import { fetchCartData, sendCartData } from './store/cart-actions';
 
 // The problem is when some data is in backend firebase
 // If app component mounted for the first time the data in database is lost
@@ -20,12 +20,19 @@ function App() {
   const notification = useSelector(state => state.ui.notification)
 
   useEffect(() => {
+    dispatch(fetchCartData())
+  }, [dispatch])
+
+  useEffect(() => {
     if(isInitial) {
       isInitial = false;
       return;
     }
 
+    if(cart.changed){
     dispatch(sendCartData(cart));
+    }
+
   }, [cart, dispatch]);
   return (
     <>
