@@ -1,23 +1,36 @@
+/* MainNavigation.module.css */
+
 .header {
-  max-width: 60rem;
-  margin: auto;
-  padding: 2rem;
-  display: flex;
-  justify-content: center;
+  background-color: #282c34;
+  padding: 1rem;
+  color: white;
+  text-align: center;
 }
 
 .list {
+  list-style: none;
   display: flex;
-  gap: 1rem;
+  justify-content: center;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
 }
 
-.list a {
+.list li a {
   text-decoration: none;
-  color: var(--color-primary-400);
+  color: white;
+  font-size: 1.1rem;
+  padding: 0.5rem 1rem;
+  transition: all 0.3s ease;
+  border-radius: 4px;
 }
 
-.list a:hover,
-.list a.active {
-  color: var(--color-primary-800);
-  text-decoration: underline;
+.list li a:hover {
+  background-color: #3e4451;
+}
+
+.active {
+  background-color: #61dafb;
+  color: #282c34;
+  font-weight: bold;
 }
