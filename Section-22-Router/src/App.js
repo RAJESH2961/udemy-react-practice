@@ -10,6 +10,7 @@ import {
 import HomePage from './components/HomePage';
 import Products from './components/Products';
 import RootLayout from './components/Root';
+import ErrorPage from './components/Error';
 
 // -------------------------
 // Method-1 (Object based routing) - ACTIVE
@@ -18,6 +19,7 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <RootLayout />,
+    errorElement: <ErrorPage />,// Error page when url enters wrong
     children: [
       {
         path: '/',
