@@ -1,31 +1,48 @@
 import React from 'react';
-import { createBrowserRouter, RouterProvider, createRoutesFromElements, Route } from 'react-router-dom';
+import { 
+  createBrowserRouter, 
+  RouterProvider, 
+  createRoutesFromElements, 
+  Route 
+} from 'react-router-dom';
+
+// Component imports
 import HomePage from './components/HomePage';
 import Products from './components/Products';
+import RootLayout from './components/Root';
 
+// -------------------------
+// Method-1 (Object based routing) - ACTIVE
+// -------------------------
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <RootLayout />,
+    children: [
+      {
+        path: '/',
+        element: <HomePage />,
+      },
+      {
+        path: 'products',  // No leading slash needed here
+        element: <Products />,
+      },
+    ],
+  }
+]);
 
-// // Method-2 for creating routes
+// -------------------------
+// Method-2 (JSX route definitions) - OPTIONAL
+// Uncomment below if you want to use this instead of Method-1
+// -------------------------
+
 // const routeDefinitions = createRoutesFromElements(
-//   <Route>
-//     <Route path='/' element={<HomePage/>} />
-//     <Route path='/products' element={<Products/>} />
+//   <Route path='/' element={<RootLayout />}>
+//     <Route index element={<HomePage />} />
+//     <Route path='products' element={<Products />} />
 //   </Route>
 // );
 
-// Method -1
-const router = createBrowserRouter([
-  {
-    path: '',
-    element: <HomePage />,
-  },
-  {
-    path: '/products',
-    element: <Products />,
-  },
-]);
-
-
-// Method-2
 // const router = createBrowserRouter(routeDefinitions);
 
 function App() {
