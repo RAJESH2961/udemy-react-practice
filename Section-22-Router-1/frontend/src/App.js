@@ -33,12 +33,16 @@ import EditEventPage from './pages/EditEvent';
 import RootLayout from './pages/Root';
 import EventRootLayout from './pages/EventsRoot';
 
+//Error code
+import ErrorPage from './pages/Error';
+
 // Define router configuration
 // Define router configuration
 const router = createBrowserRouter([
   {
     path: '/',
     element: <RootLayout />,
+    errorElement: <ErrorPage/>,
     children: [
       { index: true, element: <HomePage /> },
       {
