@@ -34,6 +34,7 @@ import RootLayout from './pages/Root';
 import EventRootLayout from './pages/EventsRoot';
 
 // Define router configuration
+// Define router configuration
 const router = createBrowserRouter([
   {
     path: '/',
@@ -44,7 +45,25 @@ const router = createBrowserRouter([
         path: 'events',
         element: <EventRootLayout />,
         children: [
-          { index: true, element: <EventsPage /> },
+          { index: true, element: <EventsPage />, // <EventsPage /> gets the data returned by below function
+            loader: async () => {
+            try {
+              const response = await fetch('http://localhost:8080/events');
+
+              if (!response.ok) {
+                throw new Error('Could not fetch events');
+              }
+
+              const resData = await response.json();
+
+              // Ensure resData.events is an array
+              return resData.events || [];// This data is automatically passed to <EventsPage />  by react-router-dom
+            } catch (error) {
+              // Log or return a fallback
+              return []; // or you can throw to handle with an error boundary
+            }
+          }
+          },
           { path: 'new', element: <NewEventPage /> },
           { path: ':eventId', element: <EventDetailPage /> },
           { path: ':eventId/edit', element: <EditEventPage /> },
