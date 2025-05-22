@@ -46,7 +46,7 @@ const router = createBrowserRouter([
         element: <EventRootLayout />,
         children: [
           { index: true, element: <EventsPage />, // <EventsPage /> gets the data returned by below function
-            loader: eventLoader,
+            loader: eventLoader, // this will call the Loader() in Event.js
           },
           { path: 'new', element: <NewEventPage /> },
           { path: ':eventId', element: <EventDetailPage /> },
