@@ -24,7 +24,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 // Page Components
 import HomePage from './pages/Home';
-import EventsPage from './pages/Events';
+import EventsPage, {loader as eventLoader} from './pages/Events';
 import EventDetailPage from './pages/EventDetail';
 import NewEventPage from './pages/NewEvent';
 import EditEventPage from './pages/EditEvent';
@@ -46,23 +46,7 @@ const router = createBrowserRouter([
         element: <EventRootLayout />,
         children: [
           { index: true, element: <EventsPage />, // <EventsPage /> gets the data returned by below function
-            loader: async () => {
-            try {
-              const response = await fetch('http://localhost:8080/events');
-
-              if (!response.ok) {
-                throw new Error('Could not fetch events');
-              }
-
-              const resData = await response.json();
-
-              // Ensure resData.events is an array
-              return resData.events || [];// This data is automatically passed to <EventsPage />  by react-router-dom
-            } catch (error) {
-              // Log or return a fallback
-              return []; // or you can throw to handle with an error boundary
-            }
-          }
+            loader: eventLoader,
           },
           { path: 'new', element: <NewEventPage /> },
           { path: ':eventId', element: <EventDetailPage /> },
