@@ -23,7 +23,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,// Error page when url enters wrong
     children: [
       {
-        path: '/',
+        index: true,
         element: <HomePage />,
       },
       {
