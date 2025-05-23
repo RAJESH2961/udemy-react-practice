@@ -46,6 +46,9 @@ export async function action({request}) {
   // we can store token in lot of ways memory cookies...
   // here we are storing in localStorage that we use it to send for outgoing requests
   localStorage.setItem('token', token);
+  const expiration = new Date();
+  expiration.setHours(expiration.getHours() + 1);
+  localStorage.setItem('expiration', expiration.toISOString());
   //once wh have logged in we redirect to login page
   return redirect('/');
   
