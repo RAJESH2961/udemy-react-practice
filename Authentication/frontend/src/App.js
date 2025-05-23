@@ -20,6 +20,8 @@ import AuthenticationPage, {action as authAction} from './pages/Authentication'
 import { action as logoutAction } from './pages/Logout.js';
 // triggering token loader to load data from local storage and make availabe int he token variable to update the UI based on that
 import { tokenLoader } from './util/auth.js';
+// TO protect route
+import { checkAuthLoader } from './util/auth.js';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -54,6 +56,7 @@ const router = createBrowserRouter([
                 path: 'edit',
                 element: <EditEventPage />,
                 action: manipulateEventAction,
+                loader: checkAuthLoader,
               },
             ],
           },
@@ -61,6 +64,7 @@ const router = createBrowserRouter([
             path: 'new',
             element: <NewEventPage />,
             action: manipulateEventAction,
+            loader: checkAuthLoader,
           },
         ],
       },
