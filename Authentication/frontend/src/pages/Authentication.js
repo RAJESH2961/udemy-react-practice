@@ -32,7 +32,7 @@ export async function action({request}) {
     body: JSON.stringify(authData)
   });
 
-  //if there is error while sending data 
+  //if there is error while sending data the response will be captured by useActionData hook() in AuthForm.js file
   if(response.status === 422 || response.status === 401){
     return response;
   }
