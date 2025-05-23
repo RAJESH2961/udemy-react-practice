@@ -18,11 +18,16 @@ import NewsletterPage, { action as newsletterAction } from './pages/Newsletter';
 import AuthenticationPage, {action as authAction} from './pages/Authentication'
 // logout function action to clear storege in local
 import { action as logoutAction } from './pages/Logout.js';
+// triggering token loader to load data from local storage and make availabe int he token variable to update the UI based on that
+import { tokenLoader } from './util/auth.js';
 const router = createBrowserRouter([
   {
     path: '/',
     element: <RootLayout />,
     errorElement: <ErrorPage />,
+    id: 'root', // now root will contain token because in below we called the token loader
+    // when / is entered the loader will call the function and getd token.
+    loader: tokenLoader, // Here we have token returned by thos function ans stored in above id
     children: [
       { index: true, element: <HomePage /> },
       { path: 'auth', element: <AuthenticationPage />, action: authAction },
