@@ -33,6 +33,11 @@ export async function action({ request }) {
     body: JSON.stringify(eventData)
   });
 
+  // Status code is seted in backend validation
+  if(response.status === 422) {
+    return response;
+  }
+
   if(!response.ok) {
     throw json({message: 'Could not save event'}, {status: 500})
   }
