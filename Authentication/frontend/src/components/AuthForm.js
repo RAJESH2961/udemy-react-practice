@@ -13,7 +13,7 @@ function AuthForm() {
   const isLogin = searchParams.get('mode') === 'login';
   return (
     <>
-      <Form method="post" className={classes.form}>
+      <Form method="POST" className={classes.form}>
         <h1>{isLogin ? 'Log in' : 'Create a new user'}</h1>
         <p>
           <label htmlFor="email">Email</label>
