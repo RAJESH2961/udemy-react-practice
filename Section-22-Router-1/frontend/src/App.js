@@ -26,8 +26,11 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import HomePage from './pages/Home';
 import EventsPage, {loader as eventLoader} from './pages/Events';
 import EventDetailPage, { loader as eventDetailLoader ,action as deleteEventAction} from './pages/EventDetail';
-import NewEventPage,{ action as newEventAction } from './pages/NewEvent';
+import NewEventPage from './pages/NewEvent';
 import EditEventPage from './pages/EditEvent';
+// importing form action from EventForm to send dynamic data based on method
+// Here we are using in EditFOrm and New Event the same form actiona dn same form data is being used
+import { action as manipulateEventAction } from './components/EventForm'
 
 // Layout Components
 import RootLayout from './pages/Root';
@@ -58,10 +61,10 @@ const router = createBrowserRouter([
           loader: eventDetailLoader,
           children: [
             { index: true, element: <EventDetailPage />, action: deleteEventAction },
-            { path: 'edit', element: <EditEventPage />},
+            { path: 'edit', element: <EditEventPage />, action: manipulateEventAction},
           ],
         },
-          { path: 'new', element: <NewEventPage />, action: newEventAction },
+          { path: 'new', element: <NewEventPage />, action: manipulateEventAction },
         ],
       },
     ],
