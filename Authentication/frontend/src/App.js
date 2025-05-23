@@ -16,7 +16,8 @@ import NewsletterPage, { action as newsletterAction } from './pages/Newsletter';
 
 // Authentication
 import AuthenticationPage, {action as authAction} from './pages/Authentication'
-
+// logout function action to clear storege in local
+import { action as logoutAction } from './pages/Logout.js';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -62,6 +63,11 @@ const router = createBrowserRouter([
         path: 'newsletter',
         element: <NewsletterPage />,
         action: newsletterAction,
+      },
+      // LOgout Url
+      {
+        path: 'logout',
+        action: logoutAction,
       },
     ],
   },
