@@ -1,52 +1,33 @@
-import { useEffect, useState } from 'react';
 
 import LoadingIndicator from '../UI/LoadingIndicator.jsx';
 import ErrorBlock from '../UI/ErrorBlock.jsx';
 import EventItem from './EventItem.jsx';
+import {useQuery} from '@tanstack/react-query'
+// fetch events functions to fetch data from backend
+import fetchEvents from '../../util/http.js';
 
 export default function NewEventsSection() {
-  const [data, setData] = useState();
-  const [error, setError] = useState();
-  const [isLoading, setIsLoading] = useState(false);
+  // use Query will return an object containt lot of values
+  // the main is the data which is returned when fetching data from backednd in http.js file
+  // and it returns some status like error(it is true only when we check manually and thrown an error in http.js else it wont return)
 
-  useEffect(() => {
-    async function fetchEvents() {
-      setIsLoading(true);
-      const response = await fetch('http://localhost:3000/events');
+  const {data, isPending, isError, error} = useQuery({
+    // required key to cache in future use
+    queryKey: ['events'],
+    // useQuery accepts an function that return promise
+    queryFn: fetchEvents
 
-      if (!response.ok) {
-        const error = new Error('An error occurred while fetching the events');
-        error.code = response.status;
-        error.info = await response.json();
-        throw error;
-      }
-
-      const { events } = await response.json();
-
-      return events;
-    }
-
-    fetchEvents()
-      .then((events) => {
-        setData(events);
-      })
-      .catch((error) => {
-        setError(error);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  }, []);
+  });
 
   let content;
 
-  if (isLoading) {
+  if (isPending) {
     content = <LoadingIndicator />;
   }
 
-  if (error) {
+  if (isError) {
     content = (
-      <ErrorBlock title="An error occurred" message="Failed to fetch events" />
+      <ErrorBlock title="An error occurred" message={error.info?.message || 'Failed to fetch events'} />
     );
   }
 
