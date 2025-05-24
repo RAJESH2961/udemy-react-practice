@@ -1,24 +1,43 @@
-    // Adjusting code to fetch data based on keywords and normal fetch
-    // The url will be changed dynamically
-    export default async function fetchEvents({ signal, searchTerm }) {
-        console.log(searchTerm);
-        
-        let url = 'http://localhost:3000/events';
-        // if there is searchterm then the url will change
-        if(searchTerm) {
-            url +='?search=' + searchTerm
-        }
+export async function fetchEvents({ signal, searchTerm }) {
+  console.log(searchTerm);
+  let url = 'http://localhost:3000/events';
 
-      const response = await fetch(url, {signal: signal});
+  if (searchTerm) {
+    url += '?search=' + searchTerm;
+  }
 
-      if (!response.ok) {
-        const error = new Error('An error occurred while fetching the events');
-        error.code = response.status;
-        error.info = await response.json();
-        throw error;
-      }
+  const response = await fetch(url, { signal: signal });
 
-      const { events } = await response.json();
+  if (!response.ok) {
+    const error = new Error('An error occurred while fetching the events');
+    error.code = response.status;
+    error.info = await response.json();
+    throw error;
+  }
 
-      return events;
-    }
+  const { events } = await response.json();
+
+  return events;
+}
+
+
+export async function createNewEvent(eventData) {
+  const response = await fetch(`http://localhost:3000/events`, {
+    method: 'POST',
+    body: JSON.stringify(eventData),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+
+  if (!response.ok) {
+    const error = new Error('An error occurred while creating the event');
+    error.code = response.status;
+    error.info = await response.json();
+    throw error;
+  }
+
+  const { event } = await response.json();
+
+  return event;
+}

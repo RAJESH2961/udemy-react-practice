@@ -4,7 +4,7 @@ import ErrorBlock from '../UI/ErrorBlock.jsx';
 import EventItem from './EventItem.jsx';
 import {useQuery} from '@tanstack/react-query'
 // fetch events functions to fetch data from backend
-import  fetchEvents  from '../../util/http.js';
+import  {fetchEvents}  from '../../util/http.js';
 
 export default function NewEventsSection() {
   // use Query will return an object containt lot of values
