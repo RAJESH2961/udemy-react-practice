@@ -15,7 +15,7 @@ export default function FindEventSection() {
     // If we call fetchEvents without passing any args then the react will automatically pass object 
     // queryFn: fetchEvents,
     
-    queryFn: ({ signal }) => fetchEvents({signal, searchTerm}),
+    queryFn: ({ signal, queryKey }) => fetchEvents({signal, ...queryKey[1]}),
     // signal is received by react default
 
     // Enabling and disabling query based on this if there is no string then it will be false

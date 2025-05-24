@@ -13,9 +13,9 @@ export default function NewEventsSection() {
 
   const {data, isPending, isError, error} = useQuery({
     // required key to cache in future use
-    queryKey: ['events'],
+    queryKey: ['events', {max : 3}],
     // useQuery accepts an function that return promise
-    queryFn: fetchEvents,
+    queryFn: ({signal, queryKey}) => fetchEvents({signal, ...queryKey[1]}),
     staleTime: 5000, // if we are moved to another page and we camed back with in 5 sec then no request will be send to background
     // gcTime: 1000, by default it is 5 minutes
     // garbace collector if we are away for 1 sec it will delete the cache and again it will send the request int the backend
