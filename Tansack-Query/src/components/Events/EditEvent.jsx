@@ -22,10 +22,26 @@ export default function EditEvent() {
   const {mutate} = useMutation({
     mutationFn: updateEvent,
     // navigate();
-    onSuccess: () => {
-    queryClient.invalidateQueries(['events']); // ♻️ Refresh events list
-    navigate('../'); // This will close the modal by navigating back
-  }
+    onMutate: async (data) => {
+      const newEvent = data.event;
+      // cancelling all ongoing queries
+      await queryClient.cancelQueries({ queryKey: ['events', params.id] });
+      const previousEvent = queryClient.getQueryData(['events', params.id]);
+      // setting new event data 
+      queryClient.setQueriesData(['events', params.id], newEvent);
+
+      return {previousEvent}
+    },
+    // If it fails rolled back
+    // COntext will have previous event returned by return onMutate() 
+    // context will have previousEvent
+    onError: (error, data, context) => {
+      queryClient.setQueriesData(['events', params.id], context.previousEvent);
+    },
+    // No matter if the Mutation failed or not it will always execute when it is called
+    onSettled: () => {
+      queryClient.invalidateQueries(['evetns', params.id]);
+    }
   })
 
   function handleSubmit(formData) {
