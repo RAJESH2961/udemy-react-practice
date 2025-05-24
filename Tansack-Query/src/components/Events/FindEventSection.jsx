@@ -10,13 +10,16 @@ export default function FindEventSection() {
   const searchElement = useRef();
   // use State to update State based on when user Entered new keyword
   const [ searchTerm, setSearchTerm ] = useState();
-  const {data, isError, isPending, error} = useQuery({
+  const {data, isError, isLoading, error} = useQuery({
     queryKey: ['events', {search: searchTerm }], // Key should be unique if we use same query key multiple places the data will be mismatched
     // If we call fetchEvents without passing any args then the react will automatically pass object 
     // queryFn: fetchEvents,
     
     queryFn: ({ signal }) => fetchEvents({signal, searchTerm}),
     // signal is received by react default
+
+    // Enabling and disabling query based on this if there is no string then it will be false
+    enabled: searchTerm !== undefined
   })
 
   function handleSubmit(event) {
@@ -25,7 +28,7 @@ export default function FindEventSection() {
   }
 
   let content = <p>Please enter a serach term and to find events</p>
-  if(isPending){
+  if(isLoading){
     content = <LoadingIndicator/>
   }
   if(isError){
