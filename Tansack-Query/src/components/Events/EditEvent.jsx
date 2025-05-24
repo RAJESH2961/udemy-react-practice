@@ -1,10 +1,11 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import Modal from '../UI/Modal.jsx';
 import EventForm from './EventForm.jsx';
-import { fetchEvent } from '../../util/http.js';
+import { fetchEvent, updateEvent } from '../../util/http.js';
 import LoadingIndicator from '../UI/LoadingIndicator.jsx';
 import ErrorBlock from '../UI/ErrorBlock.jsx';
+import { queryClient } from '../../util/http.js';
 
 export default function EditEvent() {
   const navigate = useNavigate();
@@ -17,7 +18,19 @@ export default function EditEvent() {
       id: params.id
     })
   });
-  function handleSubmit(formData) {}
+  // updating functionality
+  const {mutate} = useMutation({
+    mutationFn: updateEvent,
+    // navigate();
+    onSuccess: () => {
+    queryClient.invalidateQueries(['events']); // ♻️ Refresh events list
+    navigate('../'); // This will close the modal by navigating back
+  }
+  })
+
+  function handleSubmit(formData) {
+    mutate({ id: params.id, event: formData });
+  }
 
   function handleClose() {
     navigate('../');
