@@ -15,7 +15,11 @@ export default function NewEventsSection() {
     // required key to cache in future use
     queryKey: ['events'],
     // useQuery accepts an function that return promise
-    queryFn: fetchEvents
+    queryFn: fetchEvents,
+    staleTime: 5000, // if we are moved to another page and we camed back with in 5 sec then no request will be send to background
+    // gcTime: 1000, by default it is 5 minutes
+    // garbace collector if we are away for 1 sec it will delete the cache and again it will send the request int the backend
+
 
   });
 
