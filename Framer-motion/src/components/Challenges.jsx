@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-
+import { AnimatePresence } from 'framer-motion'
 import { ChallengesContext } from '../store/challenges-context.jsx';
 import ChallengeItem from './ChallengeItem.jsx';
 import ChallengeTabs from './ChallengeTabs.jsx';
@@ -42,6 +42,7 @@ export default function Challenges() {
       >
         {displayedChallenges.length > 0 && (
           <ol className="challenge-items">
+            <AnimatePresence>
             {displayedChallenges.map((challenge) => (
               <ChallengeItem
                 key={challenge.id}
@@ -50,6 +51,7 @@ export default function Challenges() {
                 isExpanded={expanded === challenge.id}
               />
             ))}
+            </AnimatePresence>
           </ol>
         )}
         {displayedChallenges.length === 0 && <p>No challenges found.</p>}
