@@ -1,0 +1,36 @@
+/* MainNavigation.module.css */
+
+.header {
+  background-color: #282c34;
+  padding: 1rem;
+  color: white;
+  text-align: center;
+}
+
+.list {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+}
+
+.list li a {
+  text-decoration: none;
+  color: white;
+  font-size: 1.1rem;
+  padding: 0.5rem 1rem;
+  transition: all 0.3s ease;
+  border-radius: 4px;
+}
+
+.list li a:hover {
+  background-color: #3e4451;
+}
+
+.active {
+  background-color: #61dafb;
+  color: #282c34;
+  font-weight: bold;
+}
