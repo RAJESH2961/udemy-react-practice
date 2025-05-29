@@ -1,15 +1,16 @@
 import { useAccordianContext } from "./Accordian";
 
 export default function AccordianItem({ id, title, children, className = "" }) {
-    const { openItemId, openItem, closeItem } = useAccordianContext();
+    const { openItemId, toggleItem } = useAccordianContext();
     const isOpen = openItemId === id;
 
     function handleClick() {
-        if (isOpen) {
-            closeItem();      // ✅ If already open, close it
-        } else {
-            openItem(id);     // ✅ Otherwise, open this item
-        }
+        // if (isOpen) {
+        //     closeItem();      // ✅ If already open, close it
+        // } else {
+        //     openItem(id);     // ✅ Otherwise, open this item
+        // }
+        toggleItem(id);
     }
 
     return (
