@@ -1,5 +1,7 @@
 import { createContext, useContext, useState } from "react";
 import AccordianItem from "./AccordianItem";
+import AccordianTitle from "./AccordianTitle";
+import AccordianContent from "./AccordianContent";
 
 const AccordianContext = createContext();
 
@@ -40,3 +42,5 @@ export default function Accordian({ children, className }) {
 // preventing to use accordian in outside 
 // use Accordian.Item instead of using  <AccordianItem /> in App.jsx
 Accordian.Item = AccordianItem
+Accordian.Title = AccordianTitle
+Accordian.Content = AccordianContent
