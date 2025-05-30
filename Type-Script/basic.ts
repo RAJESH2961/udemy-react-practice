@@ -59,12 +59,12 @@ let p2: Person = {
 };
 
 // Functions & types
-function add(a: number, b: number) {
-    return a+b;
-}
-function add(a: number, b: number): number {
-    return a+b;
-}
+// function add(a: number, b: number) {
+//     return a+b;
+// }
+// function add(a: number, b: number): number {
+//     return a+b;
+// }
 
 function print(value: any): void{
     console.log(value);
