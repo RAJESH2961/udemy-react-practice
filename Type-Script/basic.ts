@@ -30,3 +30,12 @@ peoples = [
         age: 20
     }
 ];
+
+// Type inference
+
+// let course: string = 'React- The Complete Guide' // Explicitily Declaring Types
+// Type Inference is a feature in languages like TypeScript where the compiler automatically deduces (infers) the type of a variable based on the value assigned to it, without you needing to explicitly annotate it.
+let course = 'React- The Complete Guide';
+let sName = "Alice";       // inferred as string
+let isStudent = true;     // inferred as boolean
+let scores = [90, 80, 70]; // inferred as number[]
