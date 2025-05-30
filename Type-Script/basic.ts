@@ -68,5 +68,14 @@ function add(a: number, b: number): number {
 
 function print(value: any): void{
     console.log(value);
-    
 }
+
+// Generics
+
+const demoArray = [1,2,3]
+function insertAtBegining<T>(array: T[], value: T) {
+    const newArray = [value, ...array];
+    return newArray;
+}
+const updatedArray = insertAtBegining(demoArray, -1); // [-1, 1, 2, 3]
+const stringArray = insertAtBegining(['a', 'b', 'c'], 'd'); // [-1, 1, 2, 3]
